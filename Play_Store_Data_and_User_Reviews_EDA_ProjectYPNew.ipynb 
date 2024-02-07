@@ -1,0 +1,2344 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "private_outputs": true,
+      "provenance": [],
+      "collapsed_sections": [
+        "gIfDvo9L0UH2"
+      ],
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/Yashpawar2626/Capstone-1--Google-Playstore-Data/blob/main/Play_Store_Data_and_User_Reviews_EDA_ProjectYPNew.ipynb%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Project Name** - **Playstore App Review Analysis ----- Complete EDA**\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "vncDsAP0Gaoa"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Project Type- Complete EDA\n",
+        "(Contribution-Individual)"
+      ],
+      "metadata": {
+        "id": "beRrZCGUAJYm"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Project Summary -**"
+      ],
+      "metadata": {
+        "id": "FJNUwmbgGyua"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "zvekmJTSQfRf"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "The Play Store apps data has enormous potential to drive app-making businesses to success. Actionable insights can be drawn for developers to work on and capture the Android market. Each app (row) has values for category, rating, size, and more. Another dataset contains customer reviews of the android apps. Explore and analyse the data to discover key factors responsible for app engagement and success."
+      ],
+      "metadata": {
+        "id": "F6v_1wHtG2nS"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "8nfQvk9fQi4L"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Problem Statement**\n"
+      ],
+      "metadata": {
+        "id": "yQaldy8SH6Dl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "We are going to research on playstore reveiw data, so that we will know which apps are mostly used, apps are used are of free category or paid one. which apps are having less starand reson behind it, so that the runner of those will upgrade their apps."
+      ],
+      "metadata": {
+        "id": "DpeJGUA3kjGy"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### **Business Objectives are below**"
+      ],
+      "metadata": {
+        "id": "PH-0ReGfmX4f"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Enhance Product Quality and User Experience: Utilize review sentiment analysis to identify areas where the app excels or falls short. Address recurring issues or negative feedback to improve overall product quality and user satisfaction.\n",
+        "\n",
+        "Feature Prioritization and Development: Use review data to prioritize feature development. Identify highly requested features or improvements to meet user expectations and align the app more closely with user needs and preferences.\n",
+        "\n",
+        "Bug Identification and Resolution: Analyze reviews for mentions of bugs or technical issues. Prioritize and address reported issues to enhance app stability and performance.\n",
+        "\n",
+        "Competitive Benchmarking: Compare your app's reviews with competitors'. Understand where your app stands in terms of user satisfaction, feature offerings, and overall performance. Identify opportunities for differentiation or improvement.\n",
+        "\n",
+        "Customer Support and Communication: Use review data to understand user concerns and communicate effectively with users. Engage with users by responding to reviews, acknowledging feedback, and offering solutions or assistance, thereby enhancing user trust and loyalty.\n",
+        "\n",
+        "Monitor User Sentiment Over Time: Track changes in sentiment and user satisfaction over time. Identify trends, improvements, or declines in user feedback to make data-driven decisions for ongoing app development and updates.\n",
+        "\n",
+        "Marketing and Reputation Management: Leverage positive reviews as testimonials for marketing efforts. Monitor and manage the app's reputation by addressing negative reviews promptly and effectively.\n",
+        "\n",
+        "User Persona and Demographic Insights: Analyze reviews to gain insights into user demographics, preferences, and behaviors. Tailor marketing strategies or product updates to specific user segments based on their feedback.\n",
+        "\n",
+        "Predictive Analysis for Future Updates: Use historical review data to predict potential issues or user expectations for future updates. Anticipate user needs and preferences to proactively address them in upcoming releases.\n"
+      ],
+      "metadata": {
+        "id": "PhDvGCAqmjP1"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# ***Let's Begin !***"
+      ],
+      "metadata": {
+        "id": "O_i_v8NEhb9l"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## ***1. Know Your Data***"
+      ],
+      "metadata": {
+        "id": "HhfV-JJviCcP"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Import Libraries"
+      ],
+      "metadata": {
+        "id": "Y3lxredqlCYt"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Import necessary libraries\n",
+        "import pandas as pd       # Pandas for data manipulation and analysis\n",
+        "import numpy as np        # NumPy for numerical operations\n",
+        "import matplotlib.pyplot as plt    # Matplotlib for data visualization\n",
+        "import seaborn as sns      # Seaborn for statistical data visualization\n",
+        "import missingno as msno   # Missingno for visualizing missing data patterns"
+      ],
+      "metadata": {
+        "id": "M8Vqi-pPk-HR"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Dataset Loading"
+      ],
+      "metadata": {
+        "id": "3RnN4peoiCZX"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df1 = pd.read_csv('/content/Play Store Data.csv') # Reading Playstore Data.CSV\n",
+        "df2 = pd.read_csv('/content/User Reviews.csv') # Reading User Reviews.CSV"
+      ],
+      "metadata": {
+        "id": "4CkvbW_SlZ_R"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "*** Dataset First View"
+      ],
+      "metadata": {
+        "id": "x71ZqKXriCWQ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(df1.head()) #here we can see first 5 columns of in playstore dataset."
+      ],
+      "metadata": {
+        "id": "LWNFOSvLl09H"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(df2.head()) #here we can see first 5 columns of in User reveiws dataset."
+      ],
+      "metadata": {
+        "id": "FHABlrrq93hx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Dataset Rows & Columns count"
+      ],
+      "metadata": {
+        "id": "7hBIi_osiCS2"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f\"the Number of rows are {df1.shape[0]},and columns are {df1.shape[1]}.\")# here we can see number of rows and columns in Playstore dataset"
+      ],
+      "metadata": {
+        "id": "D7qcq1R8PrQj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f\"the Number of rows are {df2.shape[0]},and columns are {df2.shape[1]}.\")# here we can see number of rows and columns in user reviews"
+      ],
+      "metadata": {
+        "id": "ff3XqmVv7Fit"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f\"the number of rowes are as follows: {df1.columns}\") # here we can see all column names present in Playstore dataset\n"
+      ],
+      "metadata": {
+        "id": "Kllu7SJgmLij"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "print(f\"the number of rowes are as follows: {df2.columns}\") # here we can see all column names present in user reviews dataset\n"
+      ],
+      "metadata": {
+        "id": "yHUKcUwn7Nd5"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Dataset Information"
+      ],
+      "metadata": {
+        "id": "JlHwYmJAmNHm"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Heere i am displaying a concise summary of a DataFrame, including information about the data types, non-null values, and memory usage.\n",
+        "df1.info()\n",
+        "df2.info()"
+      ],
+      "metadata": {
+        "id": "e9hRXRi6meOf"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Duplicate Values"
+      ],
+      "metadata": {
+        "id": "35m5QtbWiB9F"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df1.duplicated().sum()    # Dataset Duplicate Value Count in Playstore dataset\n",
+        "df2.duplicated().sum()    # Dataset Duplicate Value Count in user reviews dataset"
+      ],
+      "metadata": {
+        "id": "1sLdpKYkmox0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Missing Values/Null Values"
+      ],
+      "metadata": {
+        "id": "PoPl-ycgm1ru"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "df1.isnull().sum()# Missing Values/Null Values Count in playstore dataset\n",
+        "df2.isnull().sum()# Missing Values/Null Values Count in user reveiws dataset"
+      ],
+      "metadata": {
+        "id": "GgHWkxvamxVg"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Visualizing the missing values in playstore dataset, we are using missingno labrary here.\n",
+        "msno.heatmap(df1)\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "3q5wnI3om9sJ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Visualizing the missing values in user reveiws dataset\n",
+        "msno.heatmap(df2)\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "ZjGBF3ba8e_g"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### What did you know about your dataset?"
+      ],
+      "metadata": {
+        "id": "H0kj-8xxnORC"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Play Store data analysis involves the examination and exploration of data related to applications available on the Google Play Store. This data can encompass a wide range of information, including but not limited to:\n",
+        "\n",
+        "App Information: Details about apps such as their names, categories, descriptions, publishers, release dates, sizes, and versions.\n",
+        "\n",
+        "Ratings and Reviews: User-generated ratings and reviews that provide feedback on app performance, usability, and user satisfaction.\n",
+        "\n",
+        "Downloads and Installs: Information about the number of installs or downloads, which can be indicative of an app's popularity.\n",
+        "\n",
+        "App Pricing: Data on whether the app is free or paid, along with the price range for paid apps.\n",
+        "\n",
+        "App Permissions: Permissions required by apps to access certain device features or data.\n",
+        "\n",
+        "App Updates: Frequency and details of app updates released by developers.\n",
+        "\n",
+        "Analyzing Play Store data involves various aspects of data exploration and manipulation:"
+      ],
+      "metadata": {
+        "id": "gfoNAAC-nUe_"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "###  Display unique values for each column."
+      ],
+      "metadata": {
+        "id": "u3PMJOP6ngxN"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#Here we can display unique values for each column in playstore dataset\n",
+        "for column in df1.columns:\n",
+        "    unique_values = df1[column].unique()\n",
+        "    print(f\"Unique values in {column}: {unique_values}\")"
+      ],
+      "metadata": {
+        "id": "zms12Yq5n-jE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "#  Display unique values for each column in user reveiws dataset\n",
+        "for column in df2.columns:\n",
+        "    unique_values = df2[column].unique()\n",
+        "    print(f\"Unique values in {column}: {unique_values}\")"
+      ],
+      "metadata": {
+        "id": "TpK6kLoX88xz"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "\n",
+        "## 3. ***Data Wrangling***"
+      ],
+      "metadata": {
+        "id": "dauF4eBmngu3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### Data Wrangling Code"
+      ],
+      "metadata": {
+        "id": "bKJF3rekwFvQ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# This code demonstrates various aspects of data wrangling using Pandas, such as creating DataFrames, obtaining basic information about the data, performing summary statistics, selecting specific columns, filtering, sorting, and handling missing values.\n",
+        "#In Playstore dataset\n",
+        "# Display the initial DataFrame\n",
+        "print(\"App,Category,Rating,Reviews,Size,Installs,Type,Price,Content,Rating\")\n",
+        "print(df1)\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "zX8MYfGAWJiD"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Basic data information\n",
+        "print(\"App,Category,Rating,Reviews,Size,Installs,Type,Price,Content,Rating\")\n",
+        "print(df1.info())\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "Nsg2prq1WUYu"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Summary statistics\n",
+        "print(\"App,Category,Rating,Reviews,Size,Installs,Type,Price,Content,Rating\")\n",
+        "print(df1.describe())\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "chgVAbLeWXVo"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Selecting specific columns\n",
+        "print(\"App,Category,Rating,Reviews,Size,Installs,Type,Price,Content,Rating\")\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "BujGp7CgWZ7m"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Filtering data based on conditions\n",
+        "print(\"App,Category,Rating,Reviews,Size,Installs,Type,Price,Content,Rating\")\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "wk-9a2fpoLcV"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# This code demonstrates various aspects of data wrangling using Pandas, such as creating DataFrames, obtaining basic information about the data, performing summary statistics, selecting specific columns, filtering, sorting, and handling missing values.\n",
+        "#In User reveiws dataset\n",
+        "# Display the initial DataFrame\n",
+        "print(\"App,Translated_Review\tSentiment,Sentiment_Polarity,Sentiment_Subjectivity\")\n",
+        "print(df2)\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "PR_D0lIxWgG9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Basic data information\n",
+        "print(\"App,Translated_Review\tSentiment,Sentiment_Polarity,Sentiment_Subjectivity\")\n",
+        "print(df2.info())\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "MSFPe5IpWi4U"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Summary statistics\n",
+        "print(\"App,Translated_Review\tSentiment,Sentiment_Polarity,Sentiment_Subjectivity\")\n",
+        "print(df2.describe())\n",
+        "print()\n"
+      ],
+      "metadata": {
+        "id": "4wD1jincWlRE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Selecting specific columns\n",
+        "print(\"App,Translated_Review\tSentiment,Sentiment_Polarity,Sentiment_Subjectivity\")\n",
+        "print()"
+      ],
+      "metadata": {
+        "id": "IWmzzrFbWnzD"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Filtering data based on conditions\n",
+        "print(\"App,Translated_Review\tSentiment,Sentiment_Polarity,Sentiment_Subjectivity\")\n",
+        "print()\n"
+      ],
+      "metadata": {
+        "id": "YvXV6zE89kxI"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## ***4. Data Vizualization, Storytelling & Experimenting with charts : Understand the relationships between variables***"
+      ],
+      "metadata": {
+        "id": "GF8Ens_Soomf"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "****Top Chategories on google play store****"
+      ],
+      "metadata": {
+        "id": "0wOQAZs5pc--"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import seaborn as sns\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "sns.set_style('darkgrid')  # Set the Seaborn style to 'darkgrid'\n",
+        "plt.rcParams['font.size'] = 10  # Set the font size for matplotlib plots\n",
+        "plt.rcParams['figure.figsize'] = (9, 5)  # Set the default figure size for matplotlib plots\n",
+        "plt.rcParams['figure.facecolor'] = '#00000000'  # Set the facecolor of matplotlib figures to be transparent\n"
+      ],
+      "metadata": {
+        "id": "7v_ESjsspbW7"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 1"
+      ],
+      "metadata": {
+        "id": "URWsSQTFcssj"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Grouping the DataFrame df1 by the 'Category' column\n",
+        "# Counting the number of occurrences of each 'App' within each category\n",
+        "# Sorting the results in descending order based on the count\n",
+        "df1.groupby(\"Category\")[\"App\"].count().sort_values(ascending = False)"
+      ],
+      "metadata": {
+        "id": "1-lkhyn25gjB"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Using value_counts to get the counts of each unique value in the 'Category' column\n",
+        "# Sorting the counts in descending order\n",
+        "# Extracting the index (categories) and counts into separate variables\n",
+        "y = df1 [ 'Category'].value_counts().index\n",
+        "x = df1 ['Category'].value_counts()\n",
+        "# Initializing empty lists to store x and y axis values\n",
+        "xaxis =[]\n",
+        "yaxis =[]\n",
+        "# Looping through the counts and categories to populate xaxis and yaxis lists\n",
+        "for i in range (len(x)):\n",
+        "    xaxis.append(x[i])\n",
+        "    yaxis.append(y[i])\n"
+      ],
+      "metadata": {
+        "id": "S5VpF1Qz7aw8"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Set the size of the figure\n",
+        "plt. figure(figsize=(15,11))\n",
+        "# Set the x-axis label\n",
+        "plt.xlabel('Count')\n",
+        "# Set the y-axis label\n",
+        "plt.ylabel(\"Categories\")\n",
+        "# Create a bar plot using seaborn\n",
+        "graph = sns.barplot (x = xaxis, y = yaxis, palette = 'husl')\n",
+        "# Set the title of the plot\n",
+        "graph.set_title('Top Categories on Playstore App', fontsize = 20);"
+      ],
+      "metadata": {
+        "id": "pulZm38U7gDH"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "##Basic pie chart to view distribution of apps across various categories\n",
+        "fig, ax = plt.subplots(figsize = (10,10), subplot_kw = dict(aspect = 'equal'))\n",
+        "# Count the number of apps in each category\n",
+        "number_of_app = df1 ['Category'].value_counts()\n",
+        "# Get labels and sizes for the pie chart\n",
+        "labels = number_of_app.index\n",
+        "sizes = number_of_app.values\n",
+        "# Create the pie chart\n",
+        "ax.pie(sizes, labeldistance=2, autopct= '%1.1f%%')\n",
+        "# Add a legend to the right of the pie chart\n",
+        "ax.legend (labels=labels, loc  = \"right\", bbox_to_anchor=(0.9,0,0.5,1))\n",
+        "# Set the aspect ratio to be equal to ensure a circular pie chart\n",
+        "ax.axis('equal')\n",
+        "# Show the plot\n",
+        "plt.show()\n",
+        "'title(\"Distribution of Apps across various categories\")'"
+      ],
+      "metadata": {
+        "id": "Dos8Q7eF-8sk"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?\n",
+        "Answer-In this chart we can see that which category includes most of app, but in this chart we have plotted categories which are most popular among users."
+      ],
+      "metadata": {
+        "id": "K5QZ13OEpz2H"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?\n",
+        "\n",
+        "Answer-The top 3 most popular categories among users are Game, Communication & Productivity."
+      ],
+      "metadata": {
+        "id": "lQ7QKXXCp7Bj"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Answer-Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "448CDAPjqfQr"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-If we compare chart the charts we can see that although the most number of apps present in playstore belongs to categories like Family,\n",
+        "Game, Tool, Business, Medical. However, the most installed apps belong to categories like Game, Communication, Tools, Productivity &,\n",
+        "Social.\n",
+        "Hence we can see that categories where comparatively less number of app are present but they are more popular among users\n",
+        "(categories like Communication & Social) can be targeted for future business expansion purpose."
+      ],
+      "metadata": {
+        "id": "3cspy4FjqxJW"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 2"
+      ],
+      "metadata": {
+        "id": "KSlN3yHqYklG"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 2 visualization code"
+      ],
+      "metadata": {
+        "id": "R4YgtaqtYklH"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Set the figure size\n",
+        "plt.figure(figsize= (15,5))\n",
+        "# Create a count plot using seaborn\n",
+        "ax =sns.countplot (x='Category', data = df1, palette = 'Set1', order = df1['Category'].value_counts().index)\n",
+        "plt.title('Number of app per category', fontsize = 20)\n",
+        "# Rotate the x-axis labels for better readability\n",
+        "for item in ax.get_xticklabels():\n",
+        "    item.set_rotation(90)\n",
+        "    # Show the plot\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "qIshoq6M-INV"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?\n",
+        "Answer- I picked this chart to see the top categories in terms of number of apps in Google Play Store."
+      ],
+      "metadata": {
+        "id": "t6dVpIINYklI"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "ijmpgYnKYklI"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- In the above figure we can see that the most number of apps present in Play Store App belongs to category \"Family\""
+      ],
+      "metadata": {
+        "id": "PSx9atu2YklI"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason.\n"
+      ],
+      "metadata": {
+        "id": "-JiQyfWJYklI"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- The above chart can be used to make an informed decision to target a category, which is popular among user and not having a lot of apps\n",
+        "listed in Google Playstore."
+      ],
+      "metadata": {
+        "id": "BcBbebzrYklV"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 3"
+      ],
+      "metadata": {
+        "id": "EM7whBJCYoAo"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 3 visualization code"
+      ],
+      "metadata": {
+        "id": "t6GMdE67YoAp"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**** Which category App's have most number of installs?****"
+      ],
+      "metadata": {
+        "id": "vkD5tixmwbqH"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# We have to groupby category and installs to find which app has most number of installs\n",
+        "highest_installs_app = df1.groupby('Category')[['Installs']].sum().sort_values (by = 'Installs' ,ascending = False)\n",
+        "# Extracting data for plotting\n",
+        "x2axis = []\n",
+        "y2axis = []\n",
+        "\n",
+        "for i in range (len (highest_installs_app)):\n",
+        "  x2axis.append(highest_installs_app. Installs[i])\n",
+        "  y2axis.append(highest_installs_app.index[i])\n",
+        "\n",
+        "# Set the figure size\n",
+        "plt.figure(figsize = (18,13))\n",
+        "plt.xlabel('Installs')\n",
+        "plt.ylabel('Category')\n",
+        "\n",
+        "graph = sns.barplot(x = xaxis, y = yaxis, alpha = 0.9, palette = 'viridis')\n",
+        "# Set the title of the plot\n",
+        "graph.set_title('Most Installed Apps on Playstore', fontsize=25)\n",
+        "\n",
+        "# Show the plot\n",
+        "plt.show()"
+      ],
+      "metadata": {
+        "id": "1RD9GHUUwuyM"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Findings- from the above visualization, it is interpreted that the top categories with higest instals are Family,Games,Tools,Medicinal and Business."
+      ],
+      "metadata": {
+        "id": "lr6zh76NNy3S"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "fge-S5ZAYoAp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-In this chart we can see that which are most number of apps used on playstore,but we had plotted categories in terms of number of installs, so as to see the categories which are most popular among users."
+      ],
+      "metadata": {
+        "id": "5dBItgRVYoAp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "85gYPyotYoAp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-The top 3 most popular categories among users are Family,Games and tools."
+      ],
+      "metadata": {
+        "id": "4jstXR6OYoAp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "RoGjAbkUYoAp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-If we compare chart the charts we can see that although the most number of apps present in playstore belongs to categories like Family,\n",
+        "Game, Tool, Business, Medical. However, the most installed apps belong to categories like Game, Communication, Tools, Productivity & Social.\n",
+        "Hence we can see that categories where comparatively less number of app are present but they are more popular among users\n",
+        "(categories like Communication & Social) can be targeted for future business expansion purpose."
+      ],
+      "metadata": {
+        "id": "zfJ8IqMcYoAp"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 4"
+      ],
+      "metadata": {
+        "id": "4Of9eVA-YrdM"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 4 visualization code"
+      ],
+      "metadata": {
+        "id": "irlUoxc8YrdO"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "****Percentage of Reveiw sentiments bold text*****"
+      ],
+      "metadata": {
+        "id": "frhWXaf9P2na"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "# Assuming df2 is your DataFrame containing 'Sentiment' column\n",
+        "counts = df2['Sentiment'].value_counts()\n",
+        "labels = 'Positive Reviews', 'Negative Reviews', 'Neutral Reviews'\n",
+        "\n",
+        "# Set the font size and figure size using matplotlib's parameters\n",
+        "plt.rcParams['font.size'] = 12\n",
+        "plt.rcParams['figure.figsize'] = (8, 8)\n",
+        "\n",
+        "# Create the pie chart with specified attributes\n",
+        "plt.pie(counts, labels=labels, explode=[0, 0.05, 0.005], shadow=True, autopct=\"%.2f%%\")\n",
+        "\n",
+        "# Set the title for the pie chart\n",
+        "plt.title('A Pie Chart Representing Percentage of Review Sentiments', fontsize=20)\n",
+        "\n",
+        "# Add a legend to label the different segments\n",
+        "plt.legend()\n",
+        "\n",
+        "# Show the pie chart\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "z9IlxvkzQEOE"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "****Findings:****\n",
+        "Positive Reveiws-64.11\n",
+        "Negative Reveiws-22.10\n",
+        "Neutral Reveiws-13.79"
+      ],
+      "metadata": {
+        "id": "wdr0_BT5WK6t"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "iky9q4vBYrdO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-I had pickup this chart to show sentiment polarity distribution of user reveiws."
+      ],
+      "metadata": {
+        "id": "aJRCwT6DYrdO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "F6T5p64dYrdO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-Approx insights are as folows:\n",
+        "1. Positive Reveiws-64.11\n",
+        "2.Negative Reveiws-22.10\n",
+        "3.Neutral Reveiws-13.79"
+      ],
+      "metadata": {
+        "id": "Xx8WAJvtYrdO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "y-Ehk30pYrdP"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer - We can find that most of users are happy with the quality and content of apps, considering the facts there are 64.30% reveiw are positve."
+      ],
+      "metadata": {
+        "id": "jLNxxz7MYrdP"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 5"
+      ],
+      "metadata": {
+        "id": "bamQiAODYuh1"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 5 visualization code"
+      ],
+      "metadata": {
+        "id": "TIJwrbroYuh3"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "****Which Category of app from the content rating column are found more on playstore?"
+      ],
+      "metadata": {
+        "id": "unrDqBIPcYR_"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Get the unique values in the 'Content Rating' column and their counts\n",
+        "k1 = df1['Content Rating'].value_counts().index\n",
+        "k2 = df1['Content Rating'].value_counts()\n",
+        "\n",
+        "# Initialize empty lists to store data for plotting\n",
+        "k1axis = []  # List for content ratings\n",
+        "k2axis = []  # List for corresponding counts\n",
+        "\n",
+        "# Iterate through the counts and values, adding them to the respective lists\n",
+        "for i in range(len(k2)):\n",
+        "    k1axis.append(k1[i])  # Append content rating to the list\n",
+        "    k2axis.append(k2[i])  # Append count to the list\n"
+      ],
+      "metadata": {
+        "id": "stt_jhKuHmxr"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create a bar plot to visualize the distribution of content ratings\n",
+        "plt.figure(figsize=(10, 5))\n",
+        "\n",
+        "# Use the bar function to create a bar plot with specified colors and width\n",
+        "plt.bar(k1axis, k2axis, width=0.4, color=['#15244C', '#FFFF48', '#292734', '#EF2920', '#CD202D', '#ECC5F2'], alpha=0.8)\n",
+        "\n",
+        "# Set the title of the plot\n",
+        "plt.title('Content Rating', size=20)\n",
+        "\n",
+        "# Show the bar plot\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "WGZ25IOXI5au"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "QHF8YVU7Yuh3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-We had selected specific chart to show rating of Content Rating column which we found more on playstore."
+      ],
+      "metadata": {
+        "id": "dcxuIMRPYuh3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "GwzvFGzlYuh3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-we found Insights as below:\n",
+        "1.In Everyone we had found more than 8000 of content rating.\n",
+        "2.In Teen we had found more than 1500 to 2000 of content rating.\n",
+        "3.In Mature 17+ column we had found more 1000 and below 1500 content rating."
+      ],
+      "metadata": {
+        "id": "uyqkiB8YYuh3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "qYpmQ266Yuh3"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-For creating a positive business impactwe found , 'Everyone' we had found more than 8000 of content rating,In 'Teen' we had found more than 1500 to 2000 of content rating,In 'Mature 17+' column we had found more 1000 and below 1500 content rating, so that for  positive business impact we can take help of this chart."
+      ],
+      "metadata": {
+        "id": "_WtzZ_hCYuh4"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 6"
+      ],
+      "metadata": {
+        "id": "OH-pJp9IphqM"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "***5. What portion of the apps in playstore are paid and free?"
+      ],
+      "metadata": {
+        "id": "3R_cb8eZMm0D"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 6 visualization code"
+      ],
+      "metadata": {
+        "id": "kuRf4wtuphqN"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Count the number of 'Type' occurrences in the DataFrame and reset the index\n",
+        "paid_vs_free = df1['Type'].value_counts().reset_index()\n",
+        "\n",
+        "# Rename the columns for better clarity\n",
+        "paid_vs_free.rename(columns={'index': 'Type', 'Type': 'number'}, inplace=True)\n",
+        "\n"
+      ],
+      "metadata": {
+        "id": "BjBQjE13Lzcx"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create a pie chart to compare the distribution of Paid vs Free apps\n",
+        "plt.figure(figsize=(8, 10))\n",
+        "\n",
+        "# Use the pie function to create a pie chart with data from the 'paid_vs_free' DataFrame\n",
+        "plt.pie(x='number', data=paid_vs_free, labels='Type', shadow=True, autopct='%.0f%%')\n",
+        "\n",
+        "# Set the title of the pie chart\n",
+        "plt.title('Paid App Vs Free App', fontsize=15)\n",
+        "\n",
+        "# Show the pie chart\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "LjiAbNCjNP9R"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "bbFf2-_FphqN"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-• I picked this chart to see the comparison between the number of Free and Paid apps present in Play Store."
+      ],
+      "metadata": {
+        "id": "loh7H2nzphqN"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "_ouA3fa0phqN"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-After viewing this pie chart we were able to see that only 8% out of total apps in Google Play Store are paid apps, and rest 92% are free to use."
+      ],
+      "metadata": {
+        "id": "VECbqPI7phqN"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "Seke61FWphqN"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-This information will help business to decide whether they should keep the app free to install and generate revenue from ads and other subscriptions OR should it be a paid app."
+      ],
+      "metadata": {
+        "id": "DW4_bGpfphqN"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 7"
+      ],
+      "metadata": {
+        "id": "PIIx-8_IphqN"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "***6. What are the top 10 most reviewed App on Play Store app?"
+      ],
+      "metadata": {
+        "id": "aVmd1dKqQRU9"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 7 visualization code"
+      ],
+      "metadata": {
+        "id": "lqAIGUfyphqO"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Convert 'Reviews' column to numeric values\n",
+        "df1['Reviews'] = pd.to_numeric(df1['Reviews'], errors='coerce')\n",
+        "\n",
+        "# Select the top 10 apps with the highest number of reviews\n",
+        "top_10_review_app = df1.sort_values(by=['Reviews'], ascending=False).head(10).reset_index(drop=True)\n",
+        "\n",
+        "# Create a horizontal bar plot using seaborn\n",
+        "sns.barplot(y='App', x='Reviews', data=top_10_review_app, palette='rainbow', orient='h')\n",
+        "\n",
+        "# Set the title of the plot\n",
+        "plt.title('Top 10 Most Reviewed Apps')\n",
+        "\n",
+        "# Set the x-axis label\n",
+        "plt.xlabel('Number of Reviews')\n",
+        "\n",
+        "# Set the y-axis label\n",
+        "plt.ylabel('App Name')\n",
+        "\n",
+        "# Show the plot\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "0WiBhNZxQChP"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "t27r6nlMphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-This chart was picked to see the Apps with most number of reviews in order to get an estimate of their popularity among people."
+      ],
+      "metadata": {
+        "id": "iv6ro40sphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "r2jJGEOYphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-The most reviewed apps belong to Game, Social, Communication etc categories\n"
+      ],
+      "metadata": {
+        "id": "Po6ZPi4hphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "b0JNsNcRphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-One important insight that we can see from this chart that there are 3 Apps in the top 10 which are targeted towrds Teens as their audience.\n",
+        "From Chart no. 5 we can see that there are total 1036 apps targeted towards Teens as audience, which is much lesser in number if we see \"Everyone\" category having 7903 Apps, yet 3 of them featured in top 10 reviewed apps.\n",
+        "This means there is a lot of potential to grow the business if we can appropriately target Teens as our audience.\n"
+      ],
+      "metadata": {
+        "id": "xvSq8iUTphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 8"
+      ],
+      "metadata": {
+        "id": "BZR9WyysphqO"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 8 visualization code"
+      ],
+      "metadata": {
+        "id": "TdPTWpAVphqO"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Get the value counts of the 'Sentiment_Subjectivity' column in df2\n",
+        "df2.Sentiment_Subjectivity.value_counts()\n"
+      ],
+      "metadata": {
+        "id": "KfTH7mlb42SQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Set the figure size for the histogram\n",
+        "plt.figure(figsize=(18, 9))\n",
+        "\n",
+        "# Set the x-axis label\n",
+        "plt.xlabel('Subjectivity')\n",
+        "\n",
+        "# Set the y-axis label\n",
+        "plt.ylabel('Distribution of Subjectivity')\n",
+        "\n",
+        "# Set the title of the histogram\n",
+        "plt.title('Histogram of Subjectivity')\n",
+        "\n",
+        "# Create a histogram of the 'Sentiment_Subjectivity' column, excluding null values\n",
+        "plt.hist(df2[df2['Sentiment_Subjectivity'].notnull()]['Sentiment_Subjectivity'])\n",
+        "\n",
+        "# Show the histogram\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "_sMVXHm32c3O"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "jj7wYXLtphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-I pick this chart to check where the sentiment of subjectivity lies."
+      ],
+      "metadata": {
+        "id": "Ob8u6rCTphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "eZrbJ2SmphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-\n",
+        "0 - objective(fact)\n",
+        "1-subjective(opinion)"
+      ],
+      "metadata": {
+        "id": "mZtgC_hjphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "rFu4xreNphqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-It can be seen that maximum number of sentiment subjectivity lies between 0.4 to 0.7. From this we can conclude that maximum number of users give reviews to the applications, according to their experience.\n"
+      ],
+      "metadata": {
+        "id": "ey_0qi68phqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 9"
+      ],
+      "metadata": {
+        "id": "YJ55k-q6phqO"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "**Show ** the relation between rating and reviews.Does More number of reviews means more rating?**"
+      ],
+      "metadata": {
+        "id": "tdd3Q3Ci9A5d"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 9 visualization code"
+      ],
+      "metadata": {
+        "id": "B2aS4O1ophqO"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "K = sns.lmplot(x='Reviews' , y='Rating' , data = df1)"
+      ],
+      "metadata": {
+        "id": "eRgI8rb09cN9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "gCFgpxoyphqP"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-We prefer this chart to find is there any relationship between Rating and Review, does the more number of review mean more rating."
+      ],
+      "metadata": {
+        "id": "TVxDimi2phqP"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "OVtJsKN_phqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-From the above plot, we cannot say that there is a relation, it seems that irrespective of the Reviews, the ratings are majorly between 4 and\n",
+        "5, which we also noticed before.\n",
+        "Also it is not correct to assume that rating and reviews have a relationship because reviews can be positive or negative and increase in the number of reviews does not show whether. the Reviews are Positive or Negative."
+      ],
+      "metadata": {
+        "id": "ngGi97qjphqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "lssrdh5qphqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-Yes we get insights to help creating a positive business impact.\n",
+        "From the above plot, we cannot say that there is a relation, it seems that irrespective of the Reviews, the ratings are majorly between 4 and\n",
+        "5, which we also noticed before."
+      ],
+      "metadata": {
+        "id": "tBpY5ekJphqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 10"
+      ],
+      "metadata": {
+        "id": "U2RJ9gkRphqQ"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 10 visualization code"
+      ],
+      "metadata": {
+        "id": "GM7a4YP4phqQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "***Let us get some insight about the ratings for each category**"
+      ],
+      "metadata": {
+        "id": "aFrHqVn0wsNm"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create a boxplot to visualize the distribution of ratings across different categories\n",
+        "f, ax1 = plt.subplots(ncols=1)\n",
+        "\n",
+        "# Use seaborn's boxplot to display the data\n",
+        "sns.boxplot(x='Category', y='Rating', data=df1)\n",
+        "\n",
+        "# Rotate x-axis labels for better readability\n",
+        "plt.xticks(rotation=90)\n",
+        "\n",
+        "# Set the size of the figure\n",
+        "f.set_size_inches(15, 5)\n",
+        "\n",
+        "# This code creates a boxplot to show the distribution of ratings for different app categories in df1.\n",
+        "# The x-axis represents the categories, the y-axis represents the ratings, and labels are rotated for better readability.\n",
+        "# The figure size is set to (15, 5) for an appropriate display.\n"
+      ],
+      "metadata": {
+        "id": "xClAlpVKwnR9"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "1M8mcRywphqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- I pick specific chart to check ratings for each category."
+      ],
+      "metadata": {
+        "id": "8agQvks0phqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "tgIPom80phqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- By this chart we can know that most of the rating are 4.0 to 5.0."
+      ],
+      "metadata": {
+        "id": "Qp13pnNzphqQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "JMzcOPDDphqR"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- For positive business impact this chart we can know that most of the rating are 4.0 to 5.0, so that we can sort and improve our services."
+      ],
+      "metadata": {
+        "id": "R4Ka1PC2phqR"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 11"
+      ],
+      "metadata": {
+        "id": "x-EpHcCOp1ci"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 11 visualization code"
+      ],
+      "metadata": {
+        "id": "mAQTIvtqp1cj"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "***What are the count of Apps in different genres?***"
+      ],
+      "metadata": {
+        "id": "PMfBAXba0Kab"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Get the top 40 genres with the highest counts in the 'Genres' column of df1\n",
+        "topgens = df1['Genres'].value_counts().head(40)\n"
+      ],
+      "metadata": {
+        "id": "hd4YadWS0Slf"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Initialize empty lists to store data for plotting\n",
+        "x3sis = []  # List for genre names\n",
+        "y3sis = []  # List for corresponding counts\n",
+        "\n",
+        "# Iterate through the top 40 genres and append their names and counts to the respective lists\n",
+        "for i in range(len(topgens)):\n",
+        "    x3sis.append(topgens.index[i])  # Append genre name to the list\n",
+        "    y3sis.append(topgens[i])  # Append count to the list\n"
+      ],
+      "metadata": {
+        "id": "mnm1WYnezxw_"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create a bar plot to visualize the top C\n",
+        "\n",
+        "# Set the x-axis label\n",
+        "plt.xlabel('Genres (Counts)')\n",
+        "\n",
+        "# Set the y-axis label\n",
+        "plt.ylabel('Genres')\n",
+        "\n",
+        "# Create a bar plot using seaborn with the extracted data from x3sis and y3sis\n",
+        "graph = sns.barplot(x=x3sis, y=y3sis, palette=\"deep\")\n",
+        "\n",
+        "# Rotate x-axis labels for better readability\n",
+        "graph.set_xticklabels(graph.get_xticklabels(), rotation=90, fontsize=12)\n",
+        "\n",
+        "# Set the title of the plot\n",
+        "graph.set_title(\"Top Genres of Play Store\", fontsize=20)\n",
+        "\n",
+        "# This code creates a bar plot using seaborn to visualize the top genres of the Play Store based on their counts.\n",
+        "# The x-axis represents the genres, the y-axis represents their respective counts, and labels are rotated for readability.\n",
+        "# The figure size is set to (15, 9), and a deep color palette is used for the bars.\n"
+      ],
+      "metadata": {
+        "id": "kkreQLJd0n5G"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "X_VqEhTip1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-I pick this chart to know Top genres of all playstore app."
+      ],
+      "metadata": {
+        "id": "-vsMzt_np1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "8zGJKyg5p1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-Insights we found are Tools, Entertentment, Education and Medicinal are top geners of play store."
+      ],
+      "metadata": {
+        "id": "ZYdMsrqVp1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "PVzmfK_Ep1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-We found are Tools, Entertentment, Education and Medicinal are top geners of play store which can help in building postive business."
+      ],
+      "metadata": {
+        "id": "druuKYZpp1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 12"
+      ],
+      "metadata": {
+        "id": "n3dbpmDWp1ck"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 12 visualization code"
+      ],
+      "metadata": {
+        "id": "bwevp1tKp1ck"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "***Distribution of the ratings of the apps?***"
+      ],
+      "metadata": {
+        "id": "pMfKwaE92-8x"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Create a kernel density plot to visualize the distribution of ratings\n",
+        "plt.figure(figsize=(13, 5))\n",
+        "\n",
+        "# Set the x-axis label\n",
+        "plt.xlabel(\"Rating\")\n",
+        "\n",
+        "# Set the y-axis label\n",
+        "plt.ylabel(\"Frequency\")\n",
+        "\n",
+        "# Create a kernel density plot using seaborn with the 'Rating' column from df1\n",
+        "graph = sns.kdeplot(df1.Rating, color='Blue', fill=True)\n",
+        "\n",
+        "# Set the title of the plot\n",
+        "plt.title('Distribution of Ratings')\n",
+        "\n",
+        "# This code creates a kernel density plot using seaborn to visualize the distribution of ratings in the DataFrame df1.\n",
+        "# The x-axis represents ratings, the y-axis represents the frequency, and the plot is filled with a blue color.\n",
+        "# The figure size is set to (13, 5), and the\n"
+      ],
+      "metadata": {
+        "id": "gYcL27m82yk0"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "ylSl6qgtp1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- I pick this chart to vizulize top rating of apps."
+      ],
+      "metadata": {
+        "id": "m2xqNkiQp1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "ZWILFDl5p1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-I pick this chart to to find insight in top rating of apps, we found that most of the app are rated between 2.5 to 5.0"
+      ],
+      "metadata": {
+        "id": "x-lUsV2mp1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "M7G43BXep1ck"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- In top rating of apps, we found that most of the app are rated between 2.5 to 5.0"
+      ],
+      "metadata": {
+        "id": "5wwDJXsLp1cl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 13"
+      ],
+      "metadata": {
+        "id": "Ag9LCva-p1cl"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Chart - 13 visualization code"
+      ],
+      "metadata": {
+        "id": "EUfxeq9-p1cl"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "***PairPlot***"
+      ],
+      "metadata": {
+        "id": "WJd6pc666BSs"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "combine_df = pd.concat([df1, df2])  # Concatenating two DataFrames"
+      ],
+      "metadata": {
+        "id": "Vp9sYaaNhJ6z"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "sns.pairplot(combine_df) # Create a pair plot using seaborn to explore pairwise relationships in the DataFrame 'combine_df'."
+      ],
+      "metadata": {
+        "id": "fY3f-pIX5Van"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "E6MkPsBcp1cl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- Pairplot is mainly used to quickly visulize correlations between variables using scaterplot and compairing all the columns with each other in single go."
+      ],
+      "metadata": {
+        "id": "V22bRsFWp1cl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "2cELzS2fp1cl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-There is no need to make further changes in order to treat any string."
+      ],
+      "metadata": {
+        "id": "ozQPc2_Ip1cl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 3. Will the gained insights help creating a positive business impact?\n",
+        "Are there any insights that lead to negative growth? Justify with specific reason."
+      ],
+      "metadata": {
+        "id": "3MPXvC8up1cl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-A pairplot is a graphical representation that allows you to visualize relationships between variables in a dataset. It is particularly useful for exploring the correlation and distribution of numerical variables. Leveraging pairplots in a business context can have several positive impacts."
+      ],
+      "metadata": {
+        "id": "GL8l1tdLp1cl"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### Chart - 14 - Correlation Heatmap"
+      ],
+      "metadata": {
+        "id": "NC_X3p0fY2L0"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Correlation Heatmap visualization code"
+      ],
+      "metadata": {
+        "id": "xyC9zolEZNRQ"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Set the figure size for the heatmap\n",
+        "plt.figure(figsize=(16, 9))\n",
+        "\n",
+        "# Calculate the correlation matrix for the DataFrame 'combine_df'\n",
+        "corr = combine_df.corr()\n",
+        "\n",
+        "# Create a heatmap using seaborn to visualize the correlation matrix\n",
+        "sns.heatmap(corr)\n",
+        "\n",
+        "# Display the heatmap\n",
+        "plt.show()\n"
+      ],
+      "metadata": {
+        "id": "1nY__QbA7lyU"
+      },
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "source": [],
+      "metadata": {
+        "id": "gdwunywgQa2W"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 1. Why did you pick the specific chart?"
+      ],
+      "metadata": {
+        "id": "UV0SzAkaZNRQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer- We pick this chart to know correletion between the variables of our dataset."
+      ],
+      "metadata": {
+        "id": "DVPuT8LYZNRQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "##### 2. What is/are the insight(s) found from the chart?"
+      ],
+      "metadata": {
+        "id": "YPEH6qLeZNRQ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-There seems a little relation between number of Installs and number of Reviews of an App, which we saw in previous charts that as an App becomes popular and more number of people install it, the number or reviews also increases for that app. Other than this, there seems no important correlation between different variables of our dataset."
+      ],
+      "metadata": {
+        "id": "bfSqtnDqZNRR"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## **5. Solution to Business Objective**"
+      ],
+      "metadata": {
+        "id": "JcMwzZxoAimU"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "#### What do you suggest the client to achieve Business Objective ?\n",
+        "Explain Briefly."
+      ],
+      "metadata": {
+        "id": "8G2x9gOozGDZ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "Answer-\n",
+        "***1. Top categories on Google Playstore?***\n",
+        "• From above visualizaion we can say that we used to make an informed decision to target a category, which is popular among user and not having a lot of apps listed in Google Playstore.\n",
+        "***2. Which category App's have most number of installs?***\n",
+        "If we compare chart the charts we can see that although the most number of apps present in playstore belongs to categories like Family, Game, Tool, Business, Medical. However, the most installed apps belong to categories like Game, Communication, Tools, Productivity &, Social.\n",
+        "Hence we can see that categories where comparatively less number of app are present but they are more popular among users (categories like Communication & Social) can be targeted for future business expansion purpose.\n",
+        "***3. Percentage of Review Sentiments ***We get below information through our visualization.\n",
+        "1. Approx 64.21% are Positive reviews\n",
+        "2. Approx 21.44% are Positive reviews\n",
+        "3. Approx 14.35% are Positive reviews\n",
+        "We can say that most of the users are happy with the quality and Content of the Apps, considering the fact there are 64.30% review are positive.\n",
+        "***4. Which category of Apps from the Content Rating column are found more on playstore?***\n",
+        "• From the above plot we can see that Everyone category has the highest number of apps.\n",
+        "***5. What portion of the apps in playstore are paid and free?***\n",
+        "This information will help business to decide whether they should keep the app free to install and generate revenue from ads and other.\n",
+        "***6. What are the top 10 most reviewed App on Play Store app?***\n",
+        "One important insight that we can see from this chart that there are 3 Apps in the top 10 which are targeted towrds Teens as their audience.\n",
+        "From Chart no. 5 we can see that there are total 1036 apps targeted towards Teens as audience, which is much lesser in number if we see\n",
+        "\"Everyone\" category having 7903 Apps, yet 3 of them featured in top 10 reviewed apps. This means there is a lot of potential to grow the business if we can appropriately target Teens as our audience.\n",
+        "***7. Histogram of Subjectivity***\n",
+        "It can be seen that maximum number of sentiment subjectivity lies between 0.4 to 0.7. From this we can conclude that maximum number of users give reviews to the applications, according to their experience.\n",
+        "***8. Do price of the app effects the rating?***\n",
+        "We found from above visualization that as the Price increasing the ratings recived seems to decrease even below the average rating in playstore app.\n",
+        "***9. It would be interesting to see if there is any relationship between Ratings vs Reviews. Does more number of reviews means more ratings?***\n",
+        "From the above plot, we cannot say that there is a relation, it seems that irrespective of the Reviews, the ratings are majorly between 4 and 5, which we also noticed before.\n",
+        "Also it is not correct to assume that rating and reviews have a relationship because reviews can be positive or negative and increase in the number of reviews does not show whether, the Reviews are Positive or Negative.\n",
+        "***10. What is the distribution of type of reviews in the dataset?***\n",
+        "Majority of the genres have high positive sentiments, when compared to neutral and negative ones."
+      ],
+      "metadata": {
+        "id": "pASKb0qOza21"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "# **Conclusion**"
+      ],
+      "metadata": {
+        "id": "gCX9965dhzqZ"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "The conclusion here-\n",
+        "In this project of analyzing play store applications, we have worked on several parameters which would help Business to do well in launching their apps on the play store.\n",
+        "In the initial phase, we focused more on the problem statements and data cleaning, in order to ensure that we give them the best results out of our analysis.\n",
+        "New Entrepreneur needs to focus more on:\n",
+        "1. Developing apps related to the least categories as they are not explored much. Like events and beauty.\n",
+        "2. Most of the apps are Free, so focusing on free app is more important.\n",
+        "3. Focusing more on content available for Everyone will increase the chances of getting the highest installs.\n",
+        "4. They need to focus on updating their apps regularly, so that it will attract more users. 5. They need to keep in mind that the sentiments of the user keep varying as they keep using the app, so they should focus more on users needs and features."
+      ],
+      "metadata": {
+        "id": "Fjb1IsQkh3yE"
+      }
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "### ***Hurrah! You have successfully completed your EDA Capstone Project !!!***"
+      ],
+      "metadata": {
+        "id": "gIfDvo9L0UH2"
+      }
+    }
+  ]
+}
